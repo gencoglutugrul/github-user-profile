@@ -7,13 +7,14 @@ import { AppModule } from './app.module';
  */
 
 /**
- * /github/:userName
- * /github/:userName/repos
- * /auth/login
+ * GET  /api/github/:userName
+ * GET  /api/github/:userName/repos
+ * POST /api/auth/login
  * 
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   await app.listen(3000);
 }
 bootstrap();
