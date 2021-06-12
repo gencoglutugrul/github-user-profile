@@ -1,6 +1,6 @@
 import { HttpService, Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { GithubUserInfoDto } from './dto/github-user-info.dto';
 import { GithubUserRepoDto } from './dto/github-user-repo.dto';
 import { plainToClass } from 'class-transformer';
@@ -20,6 +20,9 @@ export class GithubService {
         return this.httpService.get(this.API_URL + userName).pipe(
             map((res) => {
               return plainToClass(GithubUserInfoDto, res.data)
+            }),
+            catchError(err => {
+                return throwError(err);
             })
         );
     }
@@ -28,6 +31,9 @@ export class GithubService {
         return this.httpService.get(this.API_URL + userName + '/repos').pipe(
             map((res) => {
                 return res.data.map(x => plainToClass(GithubUserRepoDto, x));
+            }),
+            catchError(err => {
+                return throwError(err);
             })
         );
     }
