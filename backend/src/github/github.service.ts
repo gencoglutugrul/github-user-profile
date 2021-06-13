@@ -1,10 +1,9 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { plainToClass } from 'class-transformer';
 
-import { GithubUserInfoDto } from './dto/github-user-info.dto';
-import { GithubUserRepoDto } from './dto/github-user-repo.dto';
+import { IGithubUser } from './interfaces/github-user.interface';
+import { IGithubRepo } from './interfaces/github-repo.interface';
 
 @Injectable()
 export class GithubService {
@@ -16,11 +15,10 @@ export class GithubService {
         this.API_URL = 'https://api.github.com/users/';
     }
 
-    // maybe we should use interface instead of dto?
-    getInfoByUserName(userName: string): Observable<GithubUserInfoDto> {
+    getInfoByUserName(userName: string): Observable<IGithubUser> {
         return this.httpService.get(this.API_URL + userName).pipe(
             map((res) => {
-              return plainToClass(GithubUserInfoDto, res.data)
+              return <IGithubUser> res.data
             }),
             catchError(err => {
                 return throwError(err);
@@ -28,10 +26,10 @@ export class GithubService {
         );
     }
 
-    getReposByUserName(userName: string): Observable<GithubUserRepoDto[]> {
+    getReposByUserName(userName: string): Observable<IGithubRepo[]> {
         return this.httpService.get(this.API_URL + userName + '/repos').pipe(
             map((res) => {
-                return res.data.map(x => plainToClass(GithubUserRepoDto, x));
+                return res.data.map(repo => <IGithubRepo> repo);
             }),
             catchError(err => {
                 return throwError(err);

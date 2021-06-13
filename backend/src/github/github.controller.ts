@@ -1,9 +1,9 @@
 import { NotFoundException, Controller, Get, Param, UseGuards } from '@nestjs/common';
 
-import { GithubUserInfoDto } from './dto/github-user-info.dto';
-import { GithubUserRepoDto } from './dto/github-user-repo.dto';
 import { GithubService } from './github.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { IGithubUser } from './interfaces/github-user.interface';
+import { IGithubRepo } from './interfaces/github-repo.interface';
 
 
 @Controller('github')
@@ -12,7 +12,7 @@ export class GithubController {
 
     @UseGuards(JwtAuthGuard)
     @Get(":userName")
-    async getUser(@Param("userName") userName: string): Promise<GithubUserInfoDto>{
+    async getUser(@Param("userName") userName: string): Promise<IGithubUser>{
         try {
             return await this.githubService.getInfoByUserName(userName).toPromise();
         } catch (error) {
@@ -24,7 +24,7 @@ export class GithubController {
 
     @UseGuards(JwtAuthGuard)
     @Get(":userName/repos")
-    async getUserRepos(@Param("userName") userName: string): Promise<GithubUserRepoDto[]>{
+    async getUserRepos(@Param("userName") userName: string): Promise<IGithubRepo[]>{
         try {
             return await this.githubService.getReposByUserName(userName).toPromise();
         } catch (error) {
