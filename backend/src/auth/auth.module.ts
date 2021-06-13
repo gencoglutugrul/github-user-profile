@@ -1,22 +1,22 @@
 import { Module } from '@nestjs/common';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
+
 import { AuthService } from './auth.service';
 import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from '../users/users.module';
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-
-// TODO: Use ConfigModule for secret key
-import { jwtConstants } from './constants';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [
     UsersModule,
+    ConfigModule.forRoot(),
     PassportModule,
     JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '24h' },
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_EXPIRES_IN },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
