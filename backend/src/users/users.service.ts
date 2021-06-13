@@ -6,7 +6,7 @@ export class UsersService {
         {
             userId: 1,
             username: "webridge",
-            password: "$2y$12$8ViDV8civmGrXNHHq7pyReH3ThhiiKjaBuAPQG9JLU5qiZNi6czCm" // 123qwe4
+            password: '$2a$10$MUKVMhHpSzXTk1SuV5ds0u/mk.XPKVDHyXQBPLBQgC8J31zagXwoG' // 123qwe4
         }
     ]
 

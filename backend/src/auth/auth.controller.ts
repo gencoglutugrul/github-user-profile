@@ -1,7 +1,8 @@
-import { Controller, Request, Post, UseGuards } from '@nestjs/common';
+import { Controller, Post, UseGuards, Body } from '@nestjs/common';
 
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthService } from './auth.service';
+import { LoginDto } from './dto/login.dto';
 
 @Controller("auth")
 export class AuthController {
@@ -9,8 +10,7 @@ export class AuthController {
 
     @UseGuards(LocalAuthGuard)
     @Post('/login')
-    login(@Request() req) {
-        // TODO: the request should be validated
-        return this.authService.login(req.user);
+    login(@Body() login: LoginDto) {
+        return this.authService.login(login.username);
     }
 }
