@@ -7,7 +7,7 @@ export class GithubRepo extends Component {
                 <a href={this.props.repo.html_url} target="_blank">
                     <Card title={this.props.repo.full_name}>
                         <p>{this.props.repo.description}</p>
-                        <p>Language: {this.props.repo.language}</p>
+                        <p>{this.props.repo.language ? "Language: " + this.props.repo.language : ""}</p>
                     </Card>
                 </a>
             </div>
