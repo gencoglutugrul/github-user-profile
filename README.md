@@ -8,6 +8,23 @@ Bu formun yer alacağı sayfa protected olmalı. Öncesinde bu sayfaya girebilme
 Ek olarak login formunda validation olmalı. Kullanıcı adı; boş olamaz ve min. 5 karakter olmalı. Parola; boş olamaz.
 ```
 
+# Test
+Projeyi kendi bilgisayarınızda çalıştırmak için önce backend uygulamasını daha sonra frontend uygulamasını ayağa kaldırmalısınız. Aşağıdaki adımları uygulayabilirsiniz.
+
+
+```
+$ git clone git@github.com:gencoglutugrul/github-user-profile.git
+$ cd github-user-profile/backend
+$ npm run start:dev
+```
+
+Başka bir terminalde
+```
+$ cd github-user-profile/frontend
+$ yarn start
+```
+Aynı portun kullanıldığı uyarısını alırsanız basitçe farklı bir portu kullanması için sorulan soruya ```yes``` cevabını verebilirsiniz.
+
 # Araştırma
 Nestjs'i hiç bilmiyordum dolayısıyla ilk önce araştırmaya ondan başladım. Daha önce node.js ile de hiç backend uygulaması yazmamıştım. Bolca googlelayarak başta kendi dökümantasyonu olmak üzere bir çok kaynağı inceledim. Bunlardan bazıları;
 
