@@ -4,10 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { setAuthorizationToken } from "./helpers/setAuthorizationToken";
+import { Provider } from "react-redux";
+import store from './helpers/store';
+import authService from './services/authService';
+
+if (authService.checkToken()) {
+    const jwtToken = localStorage.getItem("jwtToken");
+    setAuthorizationToken(jwtToken);
+}
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+      <App />
+  </Provider>,
   document.getElementById('root')
 );
 
