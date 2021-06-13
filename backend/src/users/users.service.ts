@@ -2,12 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
-    // TODO: Hash passwords with bcrypt or similar
     private readonly users = [
         {
             userId: 1,
             username: "webridge",
-            password: "123qwe4"
+            password: "$2y$12$8ViDV8civmGrXNHHq7pyReH3ThhiiKjaBuAPQG9JLU5qiZNi6czCm" // 123qwe4
         }
     ]
 
