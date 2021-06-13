@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
-
+import {Card} from 'antd'
 export class GithubRepo extends Component {
     render() {
         return (
-            <div>
-               <p>{this.props.repo.full_name}</p>
-               <p>{this.props.repo.html_url}</p>
-               <p>{this.props.repo.description}</p>
-               <p>{this.props.repo.language}</p>
+            <div style={{ marginBottom:10 }}>
+                <a href={this.props.repo.html_url} target="_blank">
+                    <Card title={this.props.repo.full_name}>
+                        <p>{this.props.repo.description}</p>
+                        <p>Language: {this.props.repo.language}</p>
+                    </Card>
+                </a>
             </div>
         )
     }

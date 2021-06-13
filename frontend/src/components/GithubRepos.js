@@ -6,7 +6,6 @@ export class GithubRepos extends Component {
     constructor(props){
         super(props)
         this.state={
-            username: props.user,
             userRepos: [],
             isLoading: true,
             notFound: false
@@ -17,9 +16,11 @@ export class GithubRepos extends Component {
     componentDidMount(){
         this.getUserRepos()
     }
+
     componentDidUpdate(prevProps){
-        if(this.state.username !== prevProps.user)
+        if(this.props.user !== prevProps.user){
             this.getUserRepos()
+        }
     }
 
     getUserRepos(){
@@ -28,7 +29,7 @@ export class GithubRepos extends Component {
             isLoading: true,
             notFound: false
         })
-        axios.get("/api/github/" + this.state.username + "/repos").then(response => {
+        axios.get("/api/github/" + this.props.user + "/repos").then(response => {
             this.setState({
                 userRepos: response.data.slice(0,10), // get only 10 of them, they are already ordered
                 isLoading: false

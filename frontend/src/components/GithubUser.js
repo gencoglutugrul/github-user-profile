@@ -7,7 +7,6 @@ export class GithubUser extends Component {
     constructor(props){
         super(props)
         this.state={
-            username: props.user,
             info: null,
             isLoading: true,
             notFound: false
@@ -18,8 +17,9 @@ export class GithubUser extends Component {
     componentDidMount(){
         this.getUserInfos()
     }
+
     componentDidUpdate(prevProps){
-        if(this.state.username !== prevProps.user)
+        if(this.props.user !== prevProps.user)
             this.getUserInfos()
     }
 
@@ -29,7 +29,7 @@ export class GithubUser extends Component {
             isLoading: true,
             notFound: false
         })
-        axios.get("/api/github/" + this.state.username).then(response => {
+        axios.get("/api/github/" + this.props.user).then(response => {
             this.setState({
                 info: response.data,
                 isLoading: false
@@ -45,15 +45,6 @@ export class GithubUser extends Component {
         })
     }
 
-    /*
-        {
-            "html_url":"https://github.com/gencoglutugrul",
-            "avatar_url":"https://avatars.githubusercontent.com/u/15321830?v=4",
-            "name":"Tuğrul Gençoğlu",
-            "location":"İzmir, Turkey",
-            "bio":null
-        }
-     */
     render() {
         return (
             <div>
@@ -61,27 +52,23 @@ export class GithubUser extends Component {
                 this.state.isLoading ? <p>Loading...</p> : 
                 ( 
                     this.state.notFound || this.state.info === null ? 
-                        <p>Sorry we can't find profile with name: {this.state.username}</p> :
-
-                        <div>
-                             <Card loading={this.state.isLoading}>
+                        <p>Sorry we can't find profile with name: {this.props.user}</p> :
+                        <a href={this.state.info.html_url} target="_blank">
+                            <Card loading={this.state.isLoading}>
                                 <Meta
                                     avatar={
                                     <Avatar src={this.state.info.avatar_url} />
                                     }
-                                    title={this.state.info.name}
+                                    title={this.state.info.name ? this.state.info.name : this.props.user}
                                     description={
-                                        this.state.info.location + " "+
-                                        this.state.info.bio
+                                        (this.state.info.location ? this.state.info.location : "")
+                                        + " "+
+                                        (this.state.info.bio ? this.state.info.bio : "")
                                     }
                                 />
                             </Card>
-                            <p><img src={this.state.info.avatar_url} alt={this.state.info.name} /></p>
-                            <p>{this.state.info.html_url}</p>
-                            <p>{this.state.info.name}</p>
-                            <p>{this.state.info.location}</p>
-                            <p>{this.state.info.bio}</p>
-                        </div>
+                        </a>
+                        
                 )
             }
         </div>
