@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { Component } from 'react'
+import authService from '../services/authService'
 import GithubRepo from './GithubRepo'
 
 export class GithubRepos extends Component {
@@ -41,6 +42,9 @@ export class GithubRepos extends Component {
                     notFound: true,
                     isLoading: false
                 })
+            }else if(err.response.status === 401){
+                authService.logout()
+                window.location.reload()
             }
         })
     }

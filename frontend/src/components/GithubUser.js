@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import authService from '../services/authService'
 import {Card, Avatar} from 'antd'
 const { Meta } = Card;
 
@@ -41,6 +42,9 @@ export class GithubUser extends Component {
                     notFound: true,
                     isLoading: false
                 })
+            }else if(err.response.status === 401){
+                authService.logout()
+                window.location.reload()
             }
         })
     }
