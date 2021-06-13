@@ -1,4 +1,5 @@
 import { HttpModule, Module } from '@nestjs/common';
+
 import { GithubController } from './github.controller';
 import { GithubService } from './github.service';
 
@@ -8,4 +9,5 @@ import { GithubService } from './github.service';
     controllers: [GithubController],
     providers: [GithubService],
 })
+
 export class GithubModule {}

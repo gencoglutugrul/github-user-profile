@@ -1,9 +1,10 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { plainToClass } from 'class-transformer';
+
 import { GithubUserInfoDto } from './dto/github-user-info.dto';
 import { GithubUserRepoDto } from './dto/github-user-repo.dto';
-import { plainToClass } from 'class-transformer';
 
 @Injectable()
 export class GithubService {

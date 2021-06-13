@@ -2,7 +2,6 @@ import { Exclude, Expose } from "class-transformer";
 
 @Exclude()
 export class GithubUserInfoDto {
-
     @Expose()
     readonly html_url: string;
 
